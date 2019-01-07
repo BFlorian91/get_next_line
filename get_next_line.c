@@ -6,7 +6,7 @@
 /*   By: flbeaumo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 19:52:30 by flbeaumo          #+#    #+#             */
-/*   Updated: 2019/01/07 14:37:26 by flbeaumo         ###   ########.fr       */
+/*   Updated: 2019/01/07 16:56:12 by flbeaumo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int			cut_line(char **s, char **line)
 	char	*tmp;
 	int		len;
 
-	len = ft_strclen(*s, '\n');
 	if (ft_strchr(*s, '\n'))
 	{
+		len = ft_strclen(*s, '\n');
 		if (!(*line = ft_strsub(*s, 0, len)))
 			return (-1);
 		if (!(tmp = ft_strdup(*s + len + 1)))
@@ -27,8 +27,12 @@ int			cut_line(char **s, char **line)
 		free(*s);
 		*s = tmp;
 	}
-	if (s[0] == '\0')
+	else
+	{
+		if (!(*line = ft_strdup(*s)))
+			return (-1);
 		ft_strdel(s);
+	}
 	return (1);
 }
 
@@ -55,7 +59,7 @@ int			get_next_line(int fd, char **line)
 	static char	*s[MAX_FD];
 	int			ret;
 
-	ret = 0;
+	ret = 1;
 	if (line == NULL || fd < 0)
 		return (-1);
 	if (!s[fd])
@@ -67,8 +71,7 @@ int			get_next_line(int fd, char **line)
 		ret = read_files(fd, &s[fd], ret);
 	if (ret < 0)
 		return (-1);
-	return (ret == 0 ? 0 : cut_line(&s[fd], line));
+	if (ret == 0 && (s[fd][0] == '\0'))
+		return (0);
+	return (cut_line(&s[fd], line));
 }
-
-
-/*

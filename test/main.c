@@ -6,7 +6,7 @@
 /*   By: flbeaumo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 18:26:02 by flbeaumo          #+#    #+#             */
-/*   Updated: 2018/12/22 18:54:49 by flbeaumo         ###   ########.fr       */
+/*   Updated: 2019/01/07 16:41:42 by flbeaumo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int		main(int ac, char **av)
 {
 	int fd;
 	char *str;
+	int ret;
 
 	fd = open(av[1], O_RDONLY);
 	if (ac == 2)
 	{
-		while (get_next_line(fd, &str) > 0)
+		while ((ret = get_next_line(fd, &str)) > 0)
 			printf("%s\n", str);
+		printf("ret %d\n", ret);
 	}
 	return (0);
 }
