@@ -6,7 +6,7 @@
 /*   By: flbeaumo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 16:43:40 by flbeaumo          #+#    #+#             */
-/*   Updated: 2019/01/07 13:36:29 by flbeaumo         ###   ########.fr       */
+/*   Updated: 2019/01/08 19:18:37 by flbeaumo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,16 @@ int        main(int ac, char **av)
 		fd3 = open(av[3], O_RDONLY);
 		while (ret1 || ret2 || ret3)
 		{ 
-			if ((ret3 = get_next_line(fd3, &str)) > 0)
-				printf(MAG"line %d "BLU"file 3 : %s\n", i, str);
-			ft_strdel(&str);
 			if ((ret1 = get_next_line(fd1, &str)) > 0)
 				printf(MAG"line %d "GRE"file 1 : %s\n", i, str);
 			ft_strdel(&str);
 			if ((ret2 = get_next_line(fd2, &str)) > 0)
 				printf(MAG"line %d "YEL"file 2 : %s\n", i, str);
 			ft_strdel(&str);
-			if ((ret1 = get_next_line(fd1, &str)) > 0)
-				printf(MAG"line %d "GRE"file 1 : %s\n", i, str);
-			ft_strdel(&str);
 			if ((ret3 = get_next_line(fd3, &str)) > 0)
 				printf(MAG"line %d "BLU"file 3 : %s\n", i, str);
-			i++;
 			ft_strdel(&str);
+			i++;
 		}
 		close(fd2);
 		close(fd3);
